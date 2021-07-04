@@ -1,7 +1,13 @@
+import {
+  userLogin,
+  getInfo
+} from '@/api/user'
+import { setToken } from "@/utils/token";
+
 let state = {
-  username: 'admin',
-  accessToken: 'admin',
-  avatar: 'https://apic.douyucdn.cn/upload/avanew/face/201702/25/08/9f4bb5f46e368ee01b01c7215cfcfb16_middle.jpg',
+  username: '',
+  accessToken: '',
+  avatar: '',
 },
 getters = {
   accessToken: state => state.accessToken,
@@ -20,5 +26,22 @@ mutations = {
   },
 },
 actions = {
+  login({commit}, userInfo) {
+    const {username,password}  = userInfo
+    return new Promise((resolve, reject) => {
+      userLogin({username: username,password: password}).then(res => {
+        if(res.code == 200 && res.data.verifySuccess) {
+          setToken(res.data.userInfo.token);
+          commit('setUsername', username)
+          commit('setAvatar', res.data.userInfo.avatar)
+          commit('setAccessToken', res.data.userInfo.token)
+          localStorage.setItem('userInfo', JSON.stringify(res.data.userInfo))
+          resolve();
+        } else {
+          reject()
+        }
+      })
+    })
+  }
 };
 export default { state, getters, mutations, actions }

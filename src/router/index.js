@@ -29,7 +29,7 @@ const routes = [
       {
         path: 'wallpaper',
         name: 'Wallpaper',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Wallpaper.vue')
+        component: () => import(/* webpackChunkName: "about" */ '../views/Picture/Wallpaper.vue')
       }
     ]
   },

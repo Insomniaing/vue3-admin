@@ -43,21 +43,10 @@
   </n-layout>
 </template>
 <script>
-import { h, defineComponent, computed } from "vue";
-import { NIcon } from "naive-ui";
-import {
-  BookOutline as BookIcon,
-  PersonOutline as PersonIcon,
-  WineOutline as WineIcon,
-  BarChartOutline as BarChart,
-  SettingsOutline as Settings,
-} from "@vicons/ionicons5";
+import { defineComponent, computed } from "vue";
+import { useMessage, useDialog } from "naive-ui";
 import { useStore } from "vuex";
 import Menus from "./menu";
-
-function renderIcon(icon) {
-  return () => h(NIcon, null, { default: () => h(icon) });
-}
 const options = [
   {
     label: "个人中心",
@@ -72,16 +61,33 @@ const options = [
 export default defineComponent({
   setup() {
     let store = useStore();
+    const message = useMessage();
+    const dialog = useDialog();
     let userInfo = computed(() => store.state.user); // 获取单个state
     return {
       userInfo,
       options,
-      handleSelect(key) {
-        console.log(key);
+      handleConfirm() {
+        dialog.warning({
+          title: "警告",
+          content: "你确定？",
+          positiveText: "确定",
+          negativeText: "不确定",
+          onPositiveClick: () => {
+            message.success("确定");
+          },
+          onNegativeClick: () => {
+            message.error("不确定");
+          },
+        });
       },
     };
   },
-  methods: {},
+  methods: {
+    handleSelect(key) {
+      this.handleConfirm();
+    },
+  },
   components: {
     Menus,
   },

@@ -59,10 +59,10 @@
 </template>
 <script>
 import { defineComponent, ref } from "vue";
-import { setToken } from "@/utils/token";
 import { useMessage } from "naive-ui";
 import { useRouter } from "vue-router";
-import request from "@/utils/request";
+import { useStore } from "vuex";
+
 import {
   AirplaneSharp as LogInIcon,
   LockClosedOutline as LockIcon,
@@ -72,6 +72,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const message = useMessage();
+    const store = useStore();
     const modelRef = ref({
       username: null,
       password: null,
@@ -100,19 +101,18 @@ export default defineComponent({
         e.preventDefault();
         formRef.value.validate((errors) => {
           if (!errors) {
-            request.post("/api/user", modelRef.value).then((res) => {
-              if (res.data.verifySuccess) {
-                setToken(res.data.userInfo.token);
+            store
+              .dispatch("user/login", modelRef.value)
+              .then(() => {
                 message.success("登录成功");
                 router.push({
-                  name: "About",
+                  name: "Board",
                 });
-              } else {
+              })
+              .catch(() => {
                 message.error("用户名或密码错误");
-              }
-            });
+              });
           } else {
-            console.log(errors);
             message.error("登录失败");
           }
         });

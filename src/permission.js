@@ -2,10 +2,15 @@ import router from './router'
 import {
   getToken
 } from '@/utils/token'
+import store from '@/store'
+
 const whiteList = ['/login']
 
 router.beforeEach(async (to, from, next) => {
     if (getToken()) {
+      let userInfo = JSON.parse(localStorage.getItem('userInfo'))
+      store.commit('user/setUsername', userInfo.username)
+      store.commit('user/setAvatar', userInfo.avatar)
       // 已登录且要跳转的页面是登录页
       if (to.path === '/login') {
         next({

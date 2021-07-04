@@ -5,7 +5,7 @@ vue3 + vuex@4.x + vue-router@4.x + axios + Naive-UI
 ``` 
 ## 登录账号/密码
 ```
-admin  123456
+admin  123456 或 test  123456
 ``` 
 ## Project setup
 ```

@@ -1,7 +1,9 @@
 <template>
   <n-message-provider>
     <Suspense>
-      <router-view></router-view>
+      <n-dialog-provider>
+        <router-view></router-view>
+      </n-dialog-provider>
     </Suspense>
   </n-message-provider>
 </template>
