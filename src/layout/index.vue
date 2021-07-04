@@ -44,7 +44,7 @@
 </template>
 <script>
 import { defineComponent, computed } from "vue";
-import { useMessage, useDialog } from "naive-ui";
+import { useDialog } from "naive-ui";
 import { useStore } from "vuex";
 import Menus from "./menu";
 const options = [
@@ -61,7 +61,6 @@ const options = [
 export default defineComponent({
   setup() {
     let store = useStore();
-    const message = useMessage();
     const dialog = useDialog();
     let userInfo = computed(() => store.state.user); // 获取单个state
     return {
@@ -69,15 +68,14 @@ export default defineComponent({
       options,
       handleConfirm() {
         dialog.warning({
-          title: "警告",
-          content: "你确定？",
+          title: "系统提示",
+          content: "确定要狠心离开么?",
           positiveText: "确定",
-          negativeText: "不确定",
+          negativeText: "取消",
           onPositiveClick: () => {
-            message.success("确定");
-          },
-          onNegativeClick: () => {
-            message.error("不确定");
+            store.dispatch("user/loginOut").then(() => {
+              location.reload();
+            });
           },
         });
       },

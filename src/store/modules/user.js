@@ -2,7 +2,7 @@ import {
   userLogin,
   getInfo
 } from '@/api/user'
-import { setToken } from "@/utils/token";
+import { setToken,removeToken } from "@/utils/token";
 
 let state = {
   username: '',
@@ -41,6 +41,13 @@ actions = {
           reject()
         }
       })
+    })
+  },
+  // 用户登出
+  loginOut() {
+    return new Promise((resolve) => {
+      removeToken()
+      resolve()
     })
   }
 };
