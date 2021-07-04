@@ -10,19 +10,26 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Layout
-  },
-  {
-    path: '/about',
-    name: 'About',
-    redirect: '/about/about',
-    // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    redirect: '/board',
     component: Layout,
     children: [
       {
-        path: 'about',
-        name: 'About',
-        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+        path: 'board',
+        name: 'Board',
+        component: () => import(/* webpackChunkName: "about" */ '../views/Board')
+      }
+    ]
+  },
+  {
+    path: '/picture',
+    name: 'Picture',
+    redirect: '/picture/wallpaper',
+    component: Layout,
+    children: [
+      {
+        path: 'wallpaper',
+        name: 'Wallpaper',
+        component: () => import(/* webpackChunkName: "about" */ '../views/Wallpaper.vue')
       }
     ]
   },
