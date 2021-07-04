@@ -7,6 +7,11 @@
           <span class="title">Hello Vue3</span>
         </h1>
         <div class="login-opt">
+          <div style="margin-right: 20px">
+            <n-badge :value="101" :max="99" color="#FC1F2B">
+              <Mail />
+            </n-badge>
+          </div>
           <n-dropdown
             @select="handleSelect"
             trigger="hover"
@@ -27,6 +32,7 @@
       <Menus />
       <n-layout-content
         ref="content"
+        embedded
         content-style="padding: 24px;"
         :native-scrollbar="true"
       >
@@ -47,6 +53,7 @@ import { defineComponent, computed } from "vue";
 import { useDialog } from "naive-ui";
 import { useStore } from "vuex";
 import Menus from "./menu";
+import Mail from "@/components/Badge";
 const options = [
   {
     label: "个人中心",
@@ -88,6 +95,7 @@ export default defineComponent({
   },
   components: {
     Menus,
+    Mail,
   },
 });
 </script>
@@ -113,6 +121,8 @@ export default defineComponent({
     }
   }
   .login-opt {
+    display: flex;
+    align-items: center;
     .user-info {
       cursor: pointer;
       display: flex;
