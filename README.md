@@ -1,4 +1,4 @@
-# vue3-demo
+# vue3-admin
 ## 基于 vue3 + Naive-UI 的一套PC管理端项目
 ```
 vue3 + vuex@4.x + vue-router@4.x + axios + Naive-UI
