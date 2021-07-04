@@ -1,5 +1,5 @@
 let state = {
-  username: 'admin',
+  username: 'sixfeetunder',
   accessToken: 'admin',
   avatar: 'https://apic.douyucdn.cn/upload/avanew/face/201702/25/08/9f4bb5f46e368ee01b01c7215cfcfb16_middle.jpg',
 },
