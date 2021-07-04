@@ -89,7 +89,7 @@ export default defineComponent({
     };
   },
   methods: {
-    handleSelect(key) {
+    handleSelect() {
       this.handleConfirm();
     },
   },

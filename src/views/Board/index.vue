@@ -1,43 +1,17 @@
 <template>
   <div id="chart">
     <div class="mini-charts">
-      <div class="card-item">
+      <div class="card-item" v-for="item in chartData" :key="item.id">
+        <div class="details">
+          <p class="content">{{ item.num }}</p>
+          <p class="content">{{ item.type }}</p>
+        </div>
         <n-card title="" hoverable>
           <apexchart
             height="100"
             type="line"
             :options="chartOptions"
-            :series="series"
-          ></apexchart>
-        </n-card>
-      </div>
-      <div class="card-item">
-        <n-card title="" hoverable>
-          <apexchart
-            height="100"
-            type="line"
-            :options="chartOptions"
-            :series="series"
-          ></apexchart>
-        </n-card>
-      </div>
-      <div class="card-item">
-        <n-card title="" hoverable>
-          <apexchart
-            height="100"
-            type="line"
-            :options="chartOptions"
-            :series="series"
-          ></apexchart>
-        </n-card>
-      </div>
-      <div class="card-item">
-        <n-card title="" hoverable>
-          <apexchart
-            height="100"
-            type="line"
-            :options="chartOptions"
-            :series="series"
+            :series="item.series"
           ></apexchart>
         </n-card>
       </div>
@@ -45,59 +19,24 @@
   </div>
 </template>
 <script>
+import { chartOptions } from "./constants.js";
 export default {
   components: {},
+  created() {
+    this.getCharts();
+  },
   data() {
     return {
-      series: [
-        {
-          data: [25, 66, 41, 59, 25, 44, 12, 36, 9, 21],
-        },
-      ],
-      chartOptions: {
-        chart: {
-          id: "spark1",
-          group: "sparks",
-          type: "line",
-          sparkline: {
-            enabled: true,
-          },
-          dropShadow: {
-            enabled: true,
-            top: 1,
-            left: 1,
-            blur: 2,
-            opacity: 0.2,
-          },
-        },
-        stroke: {
-          curve: "smooth",
-        },
-        markers: {
-          size: 0,
-        },
-        grid: {
-          padding: {
-            top: 20,
-            bottom: 10,
-            left: 110,
-          },
-        },
-        colors: ["#fff"],
-        tooltip: {
-          x: {
-            show: false,
-          },
-          y: {
-            title: {
-              formatter: function formatter(val) {
-                return "";
-              },
-            },
-          },
-        },
-      },
+      chartOptions,
+      chartData: [],
     };
+  },
+  methods: {
+    getCharts() {
+      this.$http.get("/api/board/charts").then((res) => {
+        this.chartData = res.data.chartsData;
+      });
+    },
   },
 };
 </script>
@@ -107,6 +46,20 @@ export default {
     display: flex;
     justify-content: space-between;
     .card-item {
+      min-width: 250px;
+      position: relative;
+      .details {
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        transform: translate(0, -50%);
+        z-index: 1;
+        .content {
+          font-size: 18px;
+          font-weight: 600;
+          color: #fff;
+        }
+      }
       .n-card {
         border-radius: 10px;
       }
