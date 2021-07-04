@@ -1,18 +1,21 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <n-button @click="info"> 多行 </n-button>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import { useMessage } from "naive-ui";
 
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
-}
+  setup() {
+    window.$message = useMessage();
+    const message = useMessage();
+    return {
+      info() {
+        message.info(
+          "I don't know why nobody told you how to unfold your love. Once upon a time you dressed so fine. How many roads must a man walk down. 'Cause you walked hand in hand With another man in my place. If I were you, I will realize that I love you more than any other guy."
+        );
+      },
+    };
+  },
+};
 </script>
