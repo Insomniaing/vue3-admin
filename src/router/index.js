@@ -34,6 +34,24 @@ const routes = [
     ]
   },
   {
+    path: '/Record',
+    name: 'Record',
+    redirect: '/picture/travel',
+    component: Layout,
+    children: [
+      {
+        path: 'travel',
+        name: 'Travel',
+        component: () => import(/* webpackChunkName: "about" */ '../views/Record/Travel')
+      },
+      {
+        path: 'mood',
+        name: 'Mood',
+        component: () => import(/* webpackChunkName: "about" */ '../views/Record/Mood')
+      }
+    ]
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: '404',
     // route level code-splitting

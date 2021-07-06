@@ -20,8 +20,11 @@
 import { h, defineComponent } from "vue";
 import { NIcon } from "naive-ui";
 import {
-  BarChartOutline as BarChart,
-  ImageOutline as ImageIcon,
+  BarChart as BarChart,
+  Image as ImageIcon,
+  AirplaneSharp as AirplaneIcon,
+  Footsteps as FootstepsIcon,
+  Heart as HeartIcon,
 } from "@vicons/ionicons5";
 
 function renderIcon(icon) {
@@ -29,7 +32,7 @@ function renderIcon(icon) {
 }
 const menuOptions = [
   {
-    label: "数据看板",
+    label: "数据",
     key: "Board",
     icon: renderIcon(BarChart),
   },
@@ -41,6 +44,23 @@ const menuOptions = [
       {
         label: "壁纸",
         key: "Wallpaper",
+      },
+    ],
+  },
+  {
+    label: "记录",
+    key: "Record",
+    icon: renderIcon(AirplaneIcon),
+    children: [
+      {
+        label: "旅行",
+        key: "Travel",
+        icon: renderIcon(FootstepsIcon),
+      },
+      {
+        label: "心情",
+        key: "Mood",
+        icon: renderIcon(HeartIcon),
       },
     ],
   },
