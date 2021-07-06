@@ -1,25 +1,35 @@
 <template>
   <div id="chart">
     <div class="mini-charts">
-      <div class="card-item" v-for="item in chartData" :key="item.id">
-        <div class="details">
-          <p class="content">{{ item.num }}</p>
-          <p class="content">{{ item.type }}</p>
+      <n-spin :show="show">
+        <div class="card-item" v-for="item in chartData" :key="item.id">
+          <div class="details">
+            <p class="content">{{ item.num }}</p>
+            <p class="content">{{ item.type }}</p>
+          </div>
+          <n-card title="" hoverable>
+            <apexchart
+              height="100"
+              type="line"
+              :options="miniChartOptions"
+              :series="item.series"
+            ></apexchart>
+          </n-card>
         </div>
-        <n-card title="" hoverable>
-          <apexchart
-            height="100"
-            type="line"
-            :options="chartOptions"
-            :series="item.series"
-          ></apexchart>
-        </n-card>
-      </div>
+      </n-spin>
+    </div>
+    <div style="margin-top: 20px">
+      <apexchart
+        type="area"
+        height="350"
+        :options="lineChartOptions"
+        :series="series"
+      ></apexchart>
     </div>
   </div>
 </template>
 <script>
-import { chartOptions } from "./constants.js";
+import { miniChartOptions, lineChartOptions } from "./constants.js";
 export default {
   components: {},
   created() {
@@ -27,14 +37,36 @@ export default {
   },
   data() {
     return {
-      chartOptions,
+      show: false,
+      miniChartOptions,
+      lineChartOptions,
       chartData: [],
+      series: [
+        {
+          name: "CLICK",
+          data: [431, 240, 28, 551, 42, 109, 100],
+        },
+        {
+          name: "VIEWS",
+          data: [11, 32, 445, 32, 734, 52, 213],
+        },
+        {
+          name: "TOP",
+          data: [122, 332, 84, 95, 155, 452, 326],
+        },
+        {
+          name: "lIKE",
+          data: [312, 232, 184, 45, 85, 152, 226],
+        },
+      ],
     };
   },
   methods: {
     getCharts() {
+      this.show = true;
       this.$http.get("/api/board/charts").then((res) => {
         this.chartData = res.data.chartsData;
+        this.show = false;
       });
     },
   },
@@ -43,8 +75,10 @@ export default {
 <style lang="scss">
 #chart {
   .mini-charts {
-    display: flex;
-    justify-content: space-between;
+    .n-spin-content {
+      display: flex;
+      justify-content: space-between;
+    }
     .card-item {
       min-width: 250px;
       position: relative;
