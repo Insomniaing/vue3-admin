@@ -26,6 +26,22 @@
         :series="series"
       ></apexchart>
     </div>
+    <div style="margin-top: 20px">
+      <apexchart
+        type="area"
+        height="350"
+        :options="lineChartOptions"
+        :series="series"
+      ></apexchart>
+    </div>
+    <div style="margin-top: 20px">
+      <apexchart
+        type="area"
+        height="350"
+        :options="lineChartOptions"
+        :series="series"
+      ></apexchart>
+    </div>
   </div>
 </template>
 <script>
@@ -55,7 +71,7 @@ export default {
           data: [122, 332, 84, 95, 155, 452, 326],
         },
         {
-          name: "lIKE",
+          name: "LIKE",
           data: [312, 232, 184, 45, 85, 152, 226],
         },
       ],

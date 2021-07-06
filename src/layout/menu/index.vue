@@ -9,72 +9,34 @@
   >
     <n-menu
       @update:value="handleUpdateValue"
+      :default-expanded-keys="defaultExpandedKeys"
       :collapsed-width="64"
       :collapsed-icon-size="22"
       :options="menuOptions"
-      default-value="Board"
+      :default-value="routeActive"
     />
   </n-layout-sider>
 </template>
 <script>
-import { h, defineComponent } from "vue";
-import { NIcon } from "naive-ui";
-import {
-  BarChart as BarChart,
-  Image as ImageIcon,
-  AirplaneSharp as AirplaneIcon,
-  Footsteps as FootstepsIcon,
-  Heart as HeartIcon,
-} from "@vicons/ionicons5";
-
-function renderIcon(icon) {
-  return () => h(NIcon, null, { default: () => h(icon) });
-}
-const menuOptions = [
-  {
-    label: "数据",
-    key: "Board",
-    icon: renderIcon(BarChart),
-  },
-  {
-    label: "图库",
-    key: "Picture",
-    icon: renderIcon(ImageIcon),
-    children: [
-      {
-        label: "壁纸",
-        key: "Wallpaper",
-      },
-    ],
-  },
-  {
-    label: "记录",
-    key: "Record",
-    icon: renderIcon(AirplaneIcon),
-    children: [
-      {
-        label: "旅行",
-        key: "Travel",
-        icon: renderIcon(FootstepsIcon),
-      },
-      {
-        label: "心情",
-        key: "Mood",
-        icon: renderIcon(HeartIcon),
-      },
-    ],
-  },
-];
+import { defineComponent, computed } from "vue";
+import { menuOptions } from "./constants";
+import { useRoute } from "vue-router";
 
 export default defineComponent({
   setup() {
+    const route = useRoute();
+    let pathArr = route.fullPath.split("/")[1];
+    const routeActive = computed(() => {
+      return route.name;
+    });
     return {
+      defaultExpandedKeys: [pathArr],
+      routeActive,
       menuOptions,
     };
   },
   methods: {
-    handleUpdateValue(key, item) {
-      console.log(key, item);
+    handleUpdateValue(key) {
       this.$router.push({
         name: key,
       });

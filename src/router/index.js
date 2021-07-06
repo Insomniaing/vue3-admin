@@ -21,9 +21,9 @@ const routes = [
     ]
   },
   {
-    path: '/picture',
+    path: '/Picture',
     name: 'Picture',
-    redirect: '/picture/wallpaper',
+    redirect: '/Picture/wallpaper',
     component: Layout,
     children: [
       {
@@ -36,18 +36,42 @@ const routes = [
   {
     path: '/Record',
     name: 'Record',
-    redirect: '/picture/travel',
+    redirect: '/Record/travel',
     component: Layout,
     children: [
       {
         path: 'travel',
         name: 'Travel',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Record/Travel')
+        component: () => import(/* webpackChunkName: "about" */ '../views/Record/Travel'),
+        meta: {
+          title: '旅行'
+        }
       },
       {
         path: 'mood',
         name: 'Mood',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Record/Mood')
+        component: () => import(/* webpackChunkName: "about" */ '../views/Record/Mood'),
+        meta: {
+          title: '心情'
+        }
+      }
+    ]
+  },
+  {
+    path: '/Setting',
+    name: 'Setting',
+    redirect: '/Setting/my',
+    component: Layout,
+    children: [
+      {
+        path: 'my',
+        name: 'My',
+        component: () => import(/* webpackChunkName: "about" */ '../views/Setting/My')
+      },
+      {
+        path: 'jurisdiction',
+        name: 'Jurisdiction',
+        component: () => import(/* webpackChunkName: "about" */ '../views/Setting/Jurisdiction')
       }
     ]
   },

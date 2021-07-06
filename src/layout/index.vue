@@ -36,7 +36,9 @@
         content-style="padding: 24px;"
         :native-scrollbar="true"
       >
-        <router-view />
+        <n-card style="height: 100%">
+          <router-view />
+        </n-card>
       </n-layout-content>
     </n-layout>
     <n-layout-footer
@@ -54,9 +56,10 @@ import { useDialog } from "naive-ui";
 import { useStore } from "vuex";
 import Menus from "./menu";
 import Mail from "@/components/Badge";
+
 const options = [
   {
-    label: "个人中心",
+    label: "关于我",
     key: "myInfo",
   },
   {
@@ -89,8 +92,20 @@ export default defineComponent({
     };
   },
   methods: {
-    handleSelect() {
-      this.handleConfirm();
+    handleSelect(key) {
+      switch (key) {
+        case "myInfo":
+          // this.$router.push({
+          //   name: "My",
+          // });
+          break;
+        case "out":
+          this.handleConfirm();
+
+          break;
+        default:
+          break;
+      }
     },
   },
   components: {
