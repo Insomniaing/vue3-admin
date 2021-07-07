@@ -9,10 +9,12 @@
   >
     <n-menu
       @update:value="handleUpdateValue"
-      :default-expanded-keys="defaultExpandedKeys"
+      :expanded-keys="expandedKeys"
+      @update:expanded-keys="handleUpdateExpandedKeys"
       :collapsed-width="64"
       :collapsed-icon-size="22"
       :options="menuOptions"
+      :value="routeActive"
       :default-value="routeActive"
     />
   </n-layout-sider>
@@ -25,17 +27,28 @@ import { useRoute } from "vue-router";
 export default defineComponent({
   setup() {
     const route = useRoute();
-    let pathArr = route.fullPath.split("/")[1];
     const routeActive = computed(() => {
       return route.name;
     });
     return {
-      defaultExpandedKeys: [pathArr],
       routeActive,
       menuOptions,
     };
   },
+  data() {
+    return {
+      expandedKeys: [this.$route.fullPath.split("/")[1]],
+    };
+  },
+  watch: {
+    $route(nv) {
+      this.expandedKeys = [nv.fullPath.split("/")[1]];
+    },
+  },
   methods: {
+    handleUpdateExpandedKeys(key) {
+      this.expandedKeys = key;
+    },
     handleUpdateValue(key) {
       this.$router.push({
         name: key,

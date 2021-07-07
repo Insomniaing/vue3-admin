@@ -95,9 +95,9 @@ export default defineComponent({
     handleSelect(key) {
       switch (key) {
         case "myInfo":
-          // this.$router.push({
-          //   name: "My",
-          // });
+          this.$router.push({
+            name: "My",
+          });
           break;
         case "out":
           this.handleConfirm();
