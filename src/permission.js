@@ -5,8 +5,11 @@ import {
 import store from '@/store'
 
 const whiteList = ['/login']
-
+export const loadingBarApiRef = {}
 router.beforeEach(async (to, from, next) => {
+  if (loadingBarApiRef.value) {
+    loadingBarApiRef.value.start()
+  }
     if (getToken()) {
       let userInfo = JSON.parse(localStorage.getItem('userInfo'))
       store.commit('user/setUsername', userInfo.username)
@@ -29,4 +32,11 @@ router.beforeEach(async (to, from, next) => {
         })
       }
     }
+})
+router.afterEach(function (to, from) {
+  if (!from || to.path !== from.path) {
+    if (loadingBarApiRef.value) {
+      loadingBarApiRef.value.finish()
+    }
+  }
 })

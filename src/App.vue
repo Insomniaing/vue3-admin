@@ -1,25 +1,19 @@
 <template>
-  <!-- <n-config-provider :theme="darkTheme"> -->
-  <n-message-provider>
-    <Suspense>
-      <n-dialog-provider>
-        <router-view></router-view>
-      </n-dialog-provider>
-    </Suspense>
-  </n-message-provider>
-  <!-- </n-config-provider> -->
+  <router-view></router-view>
 </template>
 <script>
-// import Layout from "@/layout";
-import { darkTheme } from "naive-ui";
-import "./styles/reset.scss";
+import { loadingBarApiRef } from "./permission";
+import { useLoadingBar } from "naive-ui";
+import { onMounted } from "vue";
 
 export default {
   setup() {
-    return { darkTheme };
-  },
-  components: {
-    // Layout,
+    const loadingBar = useLoadingBar();
+    onMounted(() => {
+      loadingBarApiRef.value = loadingBar;
+      loadingBar.finish();
+    });
+    return {};
   },
 };
 </script>
