@@ -93,11 +93,12 @@ export default {
   .mini-charts {
     .n-spin-content {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
     }
     .card-item {
       min-width: 250px;
       position: relative;
+      margin: 0 10px;
       .details {
         position: absolute;
         top: 50%;

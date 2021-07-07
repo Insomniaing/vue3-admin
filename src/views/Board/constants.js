@@ -20,6 +20,12 @@ export const miniChartOptions = {
   markers: {
     size: 0,
   },
+  yaxis: {
+    show: false,
+    yaxis: {
+      minWidth: 0
+    }
+  },
   grid: {
     padding: {
       top: 20,
