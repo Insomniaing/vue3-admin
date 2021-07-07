@@ -1,6 +1,6 @@
 <template>
   <div class="login-opt">
-    <div style="margin-right: 20px">
+    <div style="margin-right: 20px" @click="activate('right')">
       <n-badge :value="101" :max="99" color="#FC1F2B">
         <Mail />
       </n-badge>
@@ -80,6 +80,149 @@
         </div>
       </div>
     </n-popover>
+    <n-drawer v-model:show="active" :width="502" :placement="placement">
+      <n-drawer-content title="通知">
+        <n-list>
+          <n-list-item>
+            <template #suffix>
+              <n-tag type="error" size="small" round>未读</n-tag>
+            </template>
+            <n-thing
+              title="评论"
+              title-extra="不安静的小游客"
+              description="《且听风吟》"
+            >
+              <template #avatar>
+                <n-badge :value="5" dot />
+              </template>
+              <n-ellipsis :line-clamp="2">
+                电灯熄灭 物换星移 泥牛入海<br />黑暗好像 一颗巨石 按在胸口<br />独脚大盗
+                百万富翁 摸爬滚打<br />黑暗好像 一颗巨石 按在胸口
+              </n-ellipsis>
+            </n-thing>
+          </n-list-item>
+          <n-list-item>
+            <template #suffix>
+              <n-tag type="error" size="small" round>未读</n-tag>
+            </template>
+            <n-thing
+              title="收藏"
+              title-extra="房东的猫"
+              description="《那车头依然吐着烟》"
+            >
+              <template #avatar>
+                <n-badge :value="5" dot v-if="!checked" />
+              </template>
+              <div>该用户收藏了您的文章</div>
+            </n-thing>
+          </n-list-item>
+          <n-list-item>
+            <template #suffix>
+              <n-tag type="success" size="small" round>已读</n-tag>
+            </template>
+            <n-thing title="转发" title-extra="一条秋虫" description="《秋色》">
+              <template #avatar>
+                <n-badge :value="5" dot style="visibility: hidden" />
+              </template>
+              <div>该用户转发了您的文章</div>
+            </n-thing>
+          </n-list-item>
+          <n-list-item>
+            <template #suffix>
+              <n-tag type="error" size="small" round>未读</n-tag>
+            </template>
+            <n-thing
+              title="评论"
+              title-extra="落寞潇"
+              description="《复杂度不会消失，只会转移》"
+            >
+              <template #avatar>
+                <n-badge :value="5" dot />
+              </template>
+
+              <n-ellipsis :line-clamp="2">
+                当你听到一些人对于精致的概念模型侃侃而谈，请保持清醒
+              </n-ellipsis>
+            </n-thing>
+          </n-list-item>
+          <n-list-item>
+            <template #suffix>
+              <n-tag type="success" size="small" round>已读</n-tag>
+            </template>
+            <n-thing
+              title="收藏"
+              title-extra="一颗白菜"
+              description="《手写的从前》"
+            >
+              <template #avatar>
+                <n-badge :value="5" dot style="visibility: hidden" />
+              </template>
+              <div>该用户收藏了您的文章</div>
+            </n-thing>
+          </n-list-item>
+          <n-list-item>
+            <template #suffix>
+              <n-tag type="error" size="small" round>未读</n-tag>
+            </template>
+            <n-thing
+              title="收藏"
+              title-extra="我是一条鱼的羊"
+              description="《夜星》"
+            >
+              <template #avatar>
+                <n-badge :value="5" dot />
+              </template>
+              <n-ellipsis :line-clamp="2">
+                没有把握的话不要给星星换颜色，那会是个灾难。
+              </n-ellipsis>
+            </n-thing>
+          </n-list-item>
+          <n-list-item>
+            <template #suffix>
+              <n-tag type="error" size="small" round>未读</n-tag>
+            </template>
+            <n-thing
+              title="收藏"
+              title-extra="Vince 麦"
+              description="《那车头依然吐着烟》"
+            >
+              <template #avatar>
+                <n-badge :value="5" dot />
+              </template>
+              <div>该用户收藏了您的文章</div>
+            </n-thing>
+          </n-list-item>
+          <n-list-item>
+            <template #suffix>
+              <n-tag type="error" size="small" round>未读</n-tag>
+            </template>
+            <n-thing title="评论" title-extra="初安" description="《童年》">
+              <template #avatar>
+                <n-badge :value="5" dot />
+              </template>
+              <n-ellipsis :line-clamp="2">
+                每每这个时候，我都会回忆起童年玩 NDS 的快乐时光。
+              </n-ellipsis>
+            </n-thing>
+          </n-list-item>
+          <n-list-item>
+            <template #suffix>
+              <n-tag type="error" size="small" round>未读</n-tag>
+            </template>
+            <n-thing
+              title="收藏"
+              title-extra="CODE BUG"
+              description="《桃花影落》"
+            >
+              <template #avatar>
+                <n-badge :value="5" dot />
+              </template>
+              <div>该用户收藏了您的文章</div>
+            </n-thing>
+          </n-list-item>
+        </n-list>
+      </n-drawer-content>
+    </n-drawer>
   </div>
 </template>
 <script>
@@ -119,7 +262,18 @@ export default defineComponent({
       },
     };
   },
+  data() {
+    return {
+      checked: false,
+      active: false,
+      placement: "right",
+    };
+  },
   methods: {
+    activate(placement) {
+      this.active = true;
+      this.placement = placement;
+    },
     handleSelect() {
       this.handleConfirm();
     },
